@@ -21,10 +21,6 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '12345678';
 const ADMIN_TOKEN = process.env.ADMIN_SESSION_TOKEN || 'doctapp-admin-local-token';
 const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.1-flash-lite';
 
-const allowedOrigins = process.env.CORS_ORIGIN?.split(',')
-  .map((origin) => origin.trim())
-  .filter(Boolean);
-
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey =
   process.env.SUPABASE_SECRET_KEY ||
@@ -73,12 +69,7 @@ Regras adicionais:
 - O alerta final obrigatório deve ser exatamente: "${LEGAL_NOTICE}"
 `;
 
-app.use(
-  cors({
-    origin: allowedOrigins?.length ? allowedOrigins : true,
-    credentials: true
-  })
-);
+app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan('dev'));
 
